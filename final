@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -18,10 +19,69 @@ void printBoard()
         }
         cout << endl;
     }
+    cout << "----------" << endl;
 }
 bool isValidMove(string move)
 {
 }
+void mergeFunction()
+{
+}
+void randomTile() // Done
+{
+    srand(time(0));
+
+    // - Generate the value of a single tile
+    srand(time(0));
+    int random = 0;
+    int a = rand() % 10;
+    if (a != 9)
+        random = 1;
+    else
+        random = 2;
+
+    // - Generate the values of row and col
+    int index = 0;
+    int count = 0;
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            if (!exponentBoard[i][j])
+                count++;
+        }
+    }
+
+    index = rand() % count + 1;
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+            if (!exponentBoard[i][j])
+                index--;
+            if (index == 0)
+                exponentBoard[i][j] = random;
+        }
+    }
+}
+void boardTransform() // Done
+{
+    for (int i = 0; i < 4; ++i)
+    {
+        for (int j = 0; j < 4; ++j)
+        {
+
+            // - Change exponent into true value
+
+            int a = exponentBoard[i][j];
+            if (!a)
+                surfaceBoard[i][j] = 0;
+            else
+                surfaceBoard[i][j] = int(pow(2, a));
+        }
+    }
+}
+
 void upMove()
 {
 }
@@ -34,24 +94,25 @@ void leftMove()
 void rightMove()
 {
 }
-void mergeFunction()
-{
-}
-void randomTile()
-{
-}
-void openningUI()
-{
 
+void openningUI() // Done
+{
+    string start;
+    randomTile();
+    randomTile();
+    boardTransform();
     cout << "               Hello young man.            " << endl;
     cout << "           Welcome to the world of 2048.           " << endl;
     cout << "Use W(up),A(left),S(down),D(right) to move the tiles.Press 'q' to quit." << endl;
+    cout << "           Enter any key to start.         " << endl;
+    cin >> start;
     printBoard();
 }
 bool gameIsOver()
 {
+    return false;
 }
-bool successful()
+bool successful() // Done
 {
     bool res = true;
     for (int i = 0; i < 4; i++)
@@ -66,18 +127,21 @@ bool successful()
     }
     return res;
 }
-void closingUI()
+void closingUI() // Done
 {
     cout << "Nice play." << endl;
 }
 
 int main()
 {
+    string move;
     int scores = 0;
     openningUI();
-    string move;
     while (!gameIsOver())
     {
+        randomTile();
+        boardTransform();
+        printBoard();
         cout << "Your move: " << endl;
         cin >> move;
         if (isValidMove(move))
@@ -98,18 +162,16 @@ int main()
             {
                 rightMove();
             }
+            if (successful())
+            {
+                cout << "Cangratulation!" << endl;
+                break;
+            }
         }
         else
             cout << "Invalid move." << endl;
     }
-    if (successful())
-    {
-        cout << "Cangratulation!" << endl;
-    }
-    else
-    {
-        cout << "NIce play." << endl;
-    }
+    closingUI();
 
     return 0;
 }
