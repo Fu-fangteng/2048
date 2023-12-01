@@ -1,1 +1,14 @@
-# 2048
+# 2048 Name Rule:
+surfaceBoard
+exponentBoard
+
+
+
+
+
+
+
+
+
+
+
