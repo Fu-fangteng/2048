@@ -1,0 +1,54 @@
+void leftMove()
+{
+    // Move
+    for (int i = 0; i < 4; i++)
+    {
+        vector<int> subRow;
+        for (int j = 0; j < 4; j++)
+        {
+            if (exponentBoard[i][j] != 0)
+            {
+                subRow.push_back(exponentBoard[i][j]);
+                exponentBoard[i][j] = 0;
+            }
+        }
+        int sizeOfSubrow = subRow.size();
+        for (int j = 0; j < sizeOfSubrow; j++)
+        {
+            exponentBoard[i][j] = subRow[j];
+        }
+    }
+    // Merge
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4;)
+        {
+            if (exponentBoard[i][j] == exponentBoard[i][j + 1] && exponentBoard[i][j] != 0)
+            {
+                exponentBoard[i][j] += 1;
+                exponentBoard[i][j + 1] = 0;
+                j += 2;
+            }
+            else
+                j++;
+        }
+    }
+    // Move
+    for (int i = 0; i < 4; i++)
+    {
+        vector<int> subRow;
+        for (int j = 0; j < 4; j++)
+        {
+            if (exponentBoard[i][j] != 0)
+            {
+                subRow.push_back(exponentBoard[i][j]);
+                exponentBoard[i][j] = 0;
+            }
+        }
+        int sizeOfSubrow = subRow.size();
+        for (int j = 0; j < sizeOfSubrow; j++)
+        {
+            exponentBoard[i][j] = subRow[j];
+        }
+    }
+}
