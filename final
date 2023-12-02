@@ -25,7 +25,7 @@ void randomTile() // Done
     srand(time(0));
 
     // - Generate the value of a single tile
-    srand(time(0));
+    
     int random = 0;
     int a = rand() % 10;
     if (a != 9)
@@ -45,15 +45,22 @@ void randomTile() // Done
         }
     }
 
+    bool fun=false;
+
     index = rand() % count + 1;
     for (int i = 0; i < 4; ++i)
     {
         for (int j = 0; j < 4; ++j)
         {
-            if (!exponentBoard[i][j])
-                index--;
-            if (index == 0)
+            if (!exponentBoard[i][j]) index--;
+            
+            if (index == 0){
                 exponentBoard[i][j] = random;
+                fun=true;
+            }
+
+            if(fun) index--;
+                
         }
     }
 }
