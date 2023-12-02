@@ -119,6 +119,8 @@ void leftMove() // Done
             if (exponentBoard[i][j] == exponentBoard[i][j + 1] && exponentBoard[i][j] != 0)
             {
                 exponentBoard[i][j] += 1;
+                int score = exponentBoard[i][j];
+                scores += pow(2, score);
                 exponentBoard[i][j + 1] = 0;
                 j += 2;
             }
@@ -173,6 +175,8 @@ void rightMove() // Done
             if (exponentBoard[i][j] == exponentBoard[i][j - 1] && exponentBoard[i][j] != 0)
             {
                 exponentBoard[i][j] += 1;
+                int score = exponentBoard[i][j];
+                scores += pow(2, score);
                 exponentBoard[i][j - 1] = 0;
                 j -= 2;
             }
