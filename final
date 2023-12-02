@@ -8,7 +8,7 @@ using namespace std;
 vector<vector<int>> surfaceBoard(4, vector<int>(4, 0));
 vector<vector<int>> exponentBoard(4, vector<int>(4, 0));
 
-void printBoard()
+void printBoard()//Done
 {
     for (int i = 0; i < 4; i++)
     {
@@ -19,12 +19,6 @@ void printBoard()
         cout << endl;
     }
     cout << "----------" << endl;
-}
-bool isValidMove(string move)
-{
-}
-void mergeFunction()
-{
 }
 void randomTile() // Done
 {
@@ -80,7 +74,9 @@ void boardTransform() // Done
         }
     }
 }
-
+void mergeFunction()
+{
+}
 void upMove()
 {
 }
@@ -105,9 +101,41 @@ void openningUI() // Done
     cout << "           Enter any key to start.         " << endl;
     cin >> start;
 }
-bool gameIsOver()
+bool hasValidMove()//Done
 {
+    // Check row move
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 1; j < 3; j++)
+        {
+            if (exponentBoard[i][j] == exponentBoard[i][j - 1] || exponentBoard[i][j] == exponentBoard[i][j + 1])
+                return true;
+        }
+    }
+    // Check col move
+    for (int i = 1; i < 3; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if (exponentBoard[i][j] == exponentBoard[i - 1][j] || exponentBoard[i][j] == exponentBoard[i + 1][j])
+                return true;
+        }
+    }
     return false;
+}
+bool gameIsOver()//Done
+{
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            if(exponentBoard[i][j]==0)
+                return false;
+        }
+    }
+    if (hasValidMove())
+        return false;
+    return true;
 }
 bool successful() // Done
 {
@@ -128,7 +156,9 @@ void closingUI() // Done
 {
     cout << "Nice play." << endl;
 }
-
+bool isValidMove(string move)
+{
+}
 int main()
 {
     string move;
