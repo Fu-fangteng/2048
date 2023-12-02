@@ -5,11 +5,13 @@
 #include <cmath>
 
 using namespace std;
+int scores = 0;
 vector<vector<int>> surfaceBoard(4, vector<int>(4, 0));
 vector<vector<int>> exponentBoard(4, vector<int>(4, 0));
 
-void printBoard()//Done
+void printBoard() // Done
 {
+    cout << "You score is: " << scores << endl;
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
@@ -25,7 +27,7 @@ void randomTile() // Done
     srand(time(0));
 
     // - Generate the value of a single tile
-    
+
     int random = 0;
     int a = rand() % 10;
     if (a != 9)
@@ -45,22 +47,24 @@ void randomTile() // Done
         }
     }
 
-    bool fun=false;
+    bool fun = false;
 
     index = rand() % count + 1;
     for (int i = 0; i < 4; ++i)
     {
         for (int j = 0; j < 4; ++j)
         {
-            if (!exponentBoard[i][j]) index--;
-            
-            if (index == 0){
+            if (!exponentBoard[i][j])
+                index--;
+
+            if (index == 0)
+            {
                 exponentBoard[i][j] = random;
-                fun=true;
+                fun = true;
             }
 
-            if(fun) index--;
-                
+            if (fun)
+                index--;
         }
     }
 }
@@ -81,22 +85,120 @@ void boardTransform() // Done
         }
     }
 }
-void mergeFunction()
-{
-}
 void upMove()
 {
 }
 void downMove()
 {
 }
-void leftMove()
+void leftMove() // Done
 {
+    // Move
+    for (int i = 0; i < 4; i++)
+    {
+        vector<int> subRow;
+        for (int j = 0; j < 4; j++)
+        {
+            if (exponentBoard[i][j] != 0)
+            {
+                subRow.push_back(exponentBoard[i][j]);
+                exponentBoard[i][j] = 0;
+            }
+        }
+        int sizeOfSubrow = subRow.size();
+        for (int j = 0; j < sizeOfSubrow; j++)
+        {
+            exponentBoard[i][j] = subRow[j];
+        }
+    }
+    // Merge
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4;)
+        {
+            if (exponentBoard[i][j] == exponentBoard[i][j + 1] && exponentBoard[i][j] != 0)
+            {
+                exponentBoard[i][j] += 1;
+                exponentBoard[i][j + 1] = 0;
+                j += 2;
+            }
+            else
+                j++;
+        }
+    }
+    // Move
+    for (int i = 0; i < 4; i++)
+    {
+        vector<int> subRow;
+        for (int j = 0; j < 4; j++)
+        {
+            if (exponentBoard[i][j] != 0)
+            {
+                subRow.push_back(exponentBoard[i][j]);
+                exponentBoard[i][j] = 0;
+            }
+        }
+        int sizeOfSubrow = subRow.size();
+        for (int j = 0; j < sizeOfSubrow; j++)
+        {
+            exponentBoard[i][j] = subRow[j];
+        }
+    }
 }
-void rightMove()
+void rightMove() // Done
 {
+    // Move
+    for (int i = 0; i < 4; i++)
+    {
+        vector<int> subRow;
+        for (int j = 3; j >= 0; j--)
+        {
+            if (exponentBoard[i][j] != 0)
+            {
+                subRow.push_back(exponentBoard[i][j]);
+                exponentBoard[i][j] = 0;
+            }
+        }
+        int sizeOfSubrow = subRow.size();
+        for (int j = 3; j >= 4 - sizeOfSubrow; j--)
+        {
+            exponentBoard[i][j] = subRow[3 - j];
+        }
+    }
+    // Merge
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 3; j >= 0;)
+        {
+            if (exponentBoard[i][j] == exponentBoard[i][j - 1] && exponentBoard[i][j] != 0)
+            {
+                exponentBoard[i][j] += 1;
+                exponentBoard[i][j - 1] = 0;
+                j -= 2;
+            }
+            else
+                j--;
+        }
+    }
+    // Move
+    for (int i = 0; i < 4; i++)
+    {
+        vector<int> subRow;
+        for (int j = 3; j >= 0; j--)
+        {
+            if (exponentBoard[i][j] != 0)
+            {
+                subRow.push_back(exponentBoard[i][j]);
+                exponentBoard[i][j] = 0;
+            }
+        }
+        int sizeOfSubrow = subRow.size();
+        for (int j = 3; j >= 4 - sizeOfSubrow; j--)
+        {
+            exponentBoard[i][j] = subRow[3 - j];
+        }
+    }
 }
-
 void openningUI() // Done
 {
     string start;
@@ -108,7 +210,7 @@ void openningUI() // Done
     cout << "           Enter any key to start.         " << endl;
     cin >> start;
 }
-bool hasValidMove()//Done
+bool hasValidMove() // Done
 {
     // Check row move
     for (int i = 0; i < 4; i++)
@@ -130,13 +232,13 @@ bool hasValidMove()//Done
     }
     return false;
 }
-bool gameIsOver()//Done
+bool gameIsOver() // Done
 {
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
         {
-            if(exponentBoard[i][j]==0)
+            if (exponentBoard[i][j] == 0)
                 return false;
         }
     }
@@ -163,20 +265,19 @@ void closingUI() // Done
 {
     cout << "Nice play." << endl;
 }
-bool isValidMove(string move)
+bool isValidMove()
 {
 }
 int main()
 {
     string move;
-    int scores = 0;
     openningUI();
     while (!gameIsOver())
     {
         randomTile();
         boardTransform();
         printBoard();
-        cout << "Your move: " << endl;
+        cout << "Your move: ";
         cin >> move;
         if (isValidMove(move))
         {
@@ -199,13 +300,20 @@ int main()
             if (successful())
             {
                 cout << "Cangratulation!" << endl;
-                break;
+                closingUI();
+                return 0;
             }
         }
         else
+        {
+            cout << endl;
+            cout << endl;
             cout << "Invalid move." << endl;
-    }
+            cout << endl;
+            cout << endl;
+        }
+        }
+    printBoard();
     closingUI();
-
     return 0;
 }
