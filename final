@@ -252,18 +252,17 @@ bool gameIsOver() // Done
 }
 bool successful() // Done
 {
-    bool res = true;
     for (int i = 0; i < 4; i++)
     {
         for (int j = 0; j < 4; j++)
         {
-            if (exponentBoard[i][j] != 11)
+            if (exponentBoard[i][j] == 11)
             {
-                res = false;
+                return true;
             }
         }
     }
-    return res;
+    return false;
 }
 void closingUI() // Done
 {
