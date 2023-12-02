@@ -269,8 +269,9 @@ void closingUI() // Done
 {
     cout << "Nice play." << endl;
 }
-bool isValidMove()
+bool isValidMove(string move)//Done
 {
+    return move == "w" || move == "a" || move == "s" || move == "s";
 }
 int main()
 {
@@ -316,7 +317,7 @@ int main()
             cout << endl;
             cout << endl;
         }
-        }
+    }
     printBoard();
     closingUI();
     return 0;
