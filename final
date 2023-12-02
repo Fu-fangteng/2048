@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <vector>
 #include <cstdlib>
@@ -15,7 +14,7 @@ void printBoard()
     {
         for (int j = 0; j < 4; j++)
         {
-            cout << surfaceBoard[i][j] << "  ";
+            cout << exponentBoard[i][j] << "  ";
         }
         cout << endl;
     }
@@ -99,14 +98,12 @@ void openningUI() // Done
 {
     string start;
     randomTile();
-    randomTile();
     boardTransform();
     cout << "               Hello young man.            " << endl;
     cout << "           Welcome to the world of 2048.           " << endl;
     cout << "Use W(up),A(left),S(down),D(right) to move the tiles.Press 'q' to quit." << endl;
     cout << "           Enter any key to start.         " << endl;
     cin >> start;
-    printBoard();
 }
 bool gameIsOver()
 {
