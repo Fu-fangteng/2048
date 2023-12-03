@@ -382,10 +382,54 @@ void closingUI() // Done
     cout << endl;
     cout << endl;
 }
-bool isValidMove(string move) // Done
+void moveFunction(string move)
 {
-    return move == "w" || move == "a" || move == "s" || move == "d";
+    if (move == "w")
+    {
+        upMove();
+    }
+    else if (move == "s")
+    {
+        downMove();
+    }
+    else if (move == "a")
+    {
+        leftMove();
+    }
+    else if (move == "d")
+    {
+        rightMove();
+    }
 }
+bool isValidMove(string move) // Dones
+{
+    bool keyValid = move == "w" || move == "a" || move == "s" || move == "d";
+    if (keyValid)
+    {
+        int copyScore = scores;
+        vector<vector<int>> copyExBoard = exponentBoard;
+        moveFunction(move);
+        // Check if merge
+        if (scores != copyScore)
+        {
+            return true;
+        }
+        // Check if move
+        for (int i = 0; i < 4; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                if (exponentBoard[i][j] != copyExBoard[i][j])
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    return false;
+}
+
 int main()
 {
     string move;
@@ -399,22 +443,7 @@ int main()
         cin >> move;
         if (isValidMove(move))
         {
-            if (move == "w")
-            {
-                upMove();
-            }
-            else if (move == "s")
-            {
-                downMove();
-            }
-            else if (move == "a")
-            {
-                leftMove();
-            }
-            else if (move == "d")
-            {
-                rightMove();
-            }
+            moveFunction(move);
             if (successful())
             {
                 cout << "Cangratulation!" << endl;
