@@ -20,7 +20,7 @@ void printBoard() // Done
         }
         cout << endl;
     }
-    cout << "----------" << endl;
+    cout << "-------------------------" << endl;
 }
 void randomTile() // Done
 {
@@ -372,7 +372,15 @@ bool successful() // Done
 }
 void closingUI() // Done
 {
+
+    cout << endl;
+    cout << endl;
+    cout << endl;
     cout << "Nice play." << endl;
+    cout << "You have done a great job! You score is " << scores << endl;
+    cout << endl;
+    cout << endl;
+    cout << endl;
 }
 bool isValidMove(string move) // Done
 {
@@ -382,10 +390,10 @@ int main()
 {
     string move;
     openningUI();
+    randomTile();
+    boardUpdate();
     while (!gameIsOver())
     {
-        randomTile();
-        boardUpdate();
         printBoard();
         cout << "Your move: ";
         cin >> move;
@@ -423,6 +431,8 @@ int main()
             cout << endl;
             continue;
         }
+        randomTile();
+        boardUpdate();
     }
     printBoard();
     closingUI();
